@@ -64,7 +64,15 @@
 
             <a href="#" class="cta cta--white " onclick="generatePassword()">Generate Password</a>
             
-            <input type="text" class="genpass" id="generatedPassword" readonly>
+            <div class="result">
+                <input type="text" class="genpass" id="generatedPassword" readonly>
+                
+                <button type="button" class="hide" id="clipboard" onclick="copyToClipboard()">
+                    <img src="assets/copy.png" alt="Copy Icon" id="copy-icon">
+                </button>
+            </div>
+
+            <span id="copied" class="hide">Copied!</span>
             <br>
         </div>
 
@@ -138,6 +146,23 @@
             }
 
             document.getElementById("generatedPassword").value = generatedPassword;
+            
+            if (!document.getElementById("copied").className) {
+                document.getElementById("copied").classList.add("hide");
+            } 
+
+            if (generatedPassword){
+                document.getElementById("clipboard").classList.remove("hide");
+            }
+        }
+        
+
+        function copyToClipboard() {
+            const generatedPassword = document.getElementById("generatedPassword");
+            generatedPassword.select();
+
+            document.execCommand("copy");
+            document.getElementById("copied").classList.remove("hide");
         }
     </script>
 </body>
