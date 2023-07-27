@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta property="og:title" content="Password Creation">
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://passwordcreation.com/assets/logo.svg">
+    <meta property="og:url" content="https://passwordcreation.com/index.htm">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!--  Non-Essential, But Recommended -->
+    <meta property="og:description" content="Create secure passwords with one click">
+    <meta property="og:site_name" content="European Travel, Inc.">
+    <meta name="twitter:image:alt" content="Alt text for image">
+
+    <!--  Non-Essential, But Required for Analytics -->
+    <meta property="fb:app_id" content="your_app_id" />
+    <meta name="twitter:site" content="@website-username">
+    <title>PasswordCreation.com</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="home-container">
+        <div id="inner">
+            <img src="assets/logo.svg" alt="Password Creation logo" id="logo">
+            <div id="disclaimer">No password is stored on our side. This will be generated on your browser only, and no data will be stored.</div>
+            <div class="options">
+                <label for="passwordLength">Password Length:</label>
+                <select class="larger" id="passwordLength">
+                </select>
+            </div>
+           
+            <div class="options">
+                <label for="includeSymbols">Include Symbols (@#$%):</label>
+                <input class="larger" type="checkbox" id="includeSymbols" checked>
+            </div>
+            
+            <div class="options">
+                <label for="includeNumbers">Include Numbers (1234567890):</label>
+                <input class="larger" type="checkbox" id="includeNumbers" checked>
+            </div>
+   
+            <div class="options">
+                <label for="includeLowercase">Include Lowercase Characters (abcdefghijklmnopqrstuvwxyz):</label>
+                <input class="larger" type="checkbox" id="includeLowercase" checked>
+            </div>
+
+            <div class="options">
+                <label for="includeUppercase">Include Uppercase Characters (ABCDEFGHIJKLMNOPQRSTUVWXYZ):</label>
+                <input class="larger" type="checkbox" id="includeUppercase" checked>
+            </div class="options">
+
+            <div class="options">
+                <label for="excludeSimilar">Exclude Similar Characters (i, l, 1, L, o, 0, O):</label>
+                <input class="larger" type="checkbox" id="excludeSimilar">
+            </div> 
+        
+            <div class="options">
+                <label for="excludeAmbiguous">Exclude Ambiguous Characters ({ } [ ] ( ) / \ ' " ` ~ , ; : . < >):</label>
+                <input class="larger" type="checkbox" id="excludeAmbiguous">            
+            </div>
+
+            <a href="#" class="cta cta--white " onclick="generatePassword()">Generate Password</a>
+            
+            <input type="text" class="genpass" id="generatedPassword" readonly>
+            <br>
+        </div>
+
+        <div id="illustration">
+            <img src="assets/passfield.svg" alt="iota img" id="iota" class="crypto-icons">
+            <img src="assets/monitor.svg" alt="monitor img" id="monitor">
+        </div>
+    </div>
+    <script>
+        // Function to dynamically generate options for passwordLength select element
+        function generatePasswordLengthOptions() {
+            const selectElement = document.getElementById("passwordLength");
+            const maxLength = 128;
+            for (let i = 8; i <= maxLength; i++) {
+                const optionElement = document.createElement("option");
+                optionElement.value = i;
+                optionElement.textContent = i;
+                selectElement.appendChild(optionElement);
+            }
+            // Set a default value (e.g., 16)
+            selectElement.value = 16;
+        }
+
+        // Call the function to generate password length options on page load
+        generatePasswordLengthOptions();
+
+        function generatePassword() {
+            const passwordLength = document.getElementById("passwordLength").value;
+            const includeSymbols = document.getElementById("includeSymbols").checked;
+            const includeNumbers = document.getElementById("includeNumbers").checked;
+            const includeLowercase = document.getElementById("includeLowercase").checked;
+            const includeUppercase = document.getElementById("includeUppercase").checked;
+            const excludeSimilar = document.getElementById("excludeSimilar").checked;
+            const excludeAmbiguous = document.getElementById("excludeAmbiguous").checked;
+
+            const symbols = "@#$%";
+            const numbers = "1234567890";
+            const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
+            const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const similarChars = "il1Lo0O";
+            const ambiguousChars = "{}[]()/\\'\"`~,;:.<>";
+
+            let validChars = "";
+            let generatedPassword = "";
+
+            if (includeSymbols) validChars += symbols;
+            if (includeNumbers) validChars += numbers;
+            if (includeLowercase || (!includeSymbols && !includeNumbers && !includeUppercase && !excludeSimilar && !excludeAmbiguous)) {
+                validChars += lowercaseChars; // Default to lowercase characters if nothing else is selected
+            }
+            if (includeUppercase) validChars += uppercaseChars;
+
+            if (excludeSimilar) {
+                // Remove similar characters from validChars
+                for (let i = 0; i < similarChars.length; i++) {
+                    validChars = validChars.replace(similarChars[i], '');
+                }
+            }
+
+            if (excludeAmbiguous) {
+                // Remove ambiguous characters from validChars
+                for (let i = 0; i < ambiguousChars.length; i++) {
+                    validChars = validChars.replace(ambiguousChars[i], '');
+                }
+            }
+
+            const validCharsLength = validChars.length;
+            for (let i = 0; i < passwordLength; i++) {
+                const randomIndex = Math.floor(Math.random() * validCharsLength);
+                generatedPassword += validChars[randomIndex];
+            }
+
+            document.getElementById("generatedPassword").value = generatedPassword;
+        }
+    </script>
+</body>
+</html>
