@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+  <head>
+    <title>PasswordCreation.com</title>
+    <style>
+    body {
+      overflow: hidden;
+      margin: 0px;
+      padding: 0px;
+    }
+
+    div:first-child {
+      margin-top: 0px;
+    }
+
+
+
+    #settings {
+      width:300px;
+      background-color: #f1f1f1;
+    }
+
+
+    img#logo {
+      width: 180px;
+      display: block;
+      margin: 0 auto;
+      padding-top: 1em;
+    }
+
+    .options {
+      width: 92%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0.4rem;
+      margin: 0 auto;
+    }
+
+    .options > label {
+        width: calc(100% - 36px);
+    }
+
+    #disclaimer {
+      width: 90%;
+    font-weight: bold;
+    background-color: #ea4e4e;
+    color: #FFF;
+    padding: 1rem;
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    }
+
+    </style>
+
+  </head>
+  <body>
+    <div id="settings">
+      <img src="logo.svg" alt="Password Creation logo" id="logo">
+      <div id="disclaimer">No password is stored on our side. This will be generated on your browser only, and no data will be stored.</div>
+      <div class="options">
+          <label for="passwordLength">Password Length:</label>
+          <select class="larger" id="passwordLength">
+          </select>
+      </div>
+     
+      <div class="options">
+          <label for="includeSymbols">Include Symbols (@#$%):</label>
+          <input class="larger" type="checkbox" id="includeSymbols" checked>
+      </div>
+      
+      <div class="options">
+          <label for="includeNumbers">Include Numbers (1234567890):</label>
+          <input class="larger" type="checkbox" id="includeNumbers" checked>
+      </div>
+  
+      <div class="options">
+          <label for="includeLowercase">Include Lowercase Characters (abcdefghijklmnopqrstuvwxyz):</label>
+          <input class="larger" type="checkbox" id="includeLowercase" checked>
+      </div>
+  
+      <div class="options">
+          <label for="includeUppercase">Include Uppercase Characters (ABCDEFGHIJKLMNOPQRSTUVWXYZ):</label>
+          <input class="larger" type="checkbox" id="includeUppercase" checked>
+      </div class="options">
+  
+      <div class="options">
+          <label for="excludeSimilar">Exclude Similar Characters (i, l, 1, L, o, 0, O):</label>
+          <input class="larger" type="checkbox" id="excludeSimilar">
+      </div> 
+  
+      <div class="options">
+          <label for="excludeAmbiguous">Exclude Ambiguous Characters ({ } [ ] ( ) / \ ' " ` ~ , ; : . < >):</label>
+          <input class="larger" type="checkbox" id="excludeAmbiguous">            
+      </div>
+  
+
+    </div>
+
+ 
+    <script src="popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+  {
+	"manifest_version": 3,
+	"name": "PasswordCreation.com",
+	"description": "An extension for creating secure passwords",
+    "action": {
+        "default_icon": {
+            "48": "icons/48.png",
+            "96": "icons/96.png"
+        },
+        "default_title": "PasswordCreation.com",
+        "default_popup": "popup.html"
+      },
+      "permissions": [
+        "storage"
+      ],
+	"version": "1.0",
+	"homepage_url": "https://github.com/jersobh/passwordcreation.github.io",
+	"content_scripts": [
+		{
+			"matches": ["http://*/*", "https://*/*"],
+			"js": ["popup.js", "background.js"]
+		}
+	],
+	"icons": {
+		"48": "icons/48.png",
+		"96": "icons/96.png"
+	}
+}
